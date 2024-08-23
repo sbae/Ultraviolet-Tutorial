@@ -23,6 +23,9 @@ OnDemand: https://ondemand.hpc.nyumc.org/
 
 Navigate your directories and submit batch jobs on your web browser. VPN needed.
 
+### Text editors
+Consider [Sublime Text](https://www.sublimetext.com/) or [VSCode](https://code.visualstudio.com/) to text Stata or R scripts.
+
 
 ## Logging into UltraViolet
 VPN access is needed when you’re off-campus: https://atnyulmc.org/help-documentation/NYU-Langone-Advanced-Access-App
