@@ -64,7 +64,7 @@ Loading default-environment
 
 [baes03@bigpurple-ln2 ~]$
 ```
-You are in the log-in node. Your command prompt shows `ln2`. 
+You are in the login node. Your command prompt shows `ln2`. 
 
 ## Developing your script in an interactive session
 Use this workflow only for development purposes. Your final results must come from a batch job.
@@ -203,6 +203,7 @@ cd ~/bin
 ```
 
 2. Create two files.
+   
 First, create `srun_r` (no extension). Open the file in any text editor (like the MobaXTerm internal editor). Put the script below into `srun_r` and save it.
 ```
 echo '#!/bin/bash
@@ -217,7 +218,9 @@ module load r
 R CMD BATCH --no-restore --no-save '$1 | sbatch --output=/dev/null --error=/dev/null --job-name=$1 --time=24:00:00 --ntasks=1 --cpus-per-task=1 --mem-per-cpu=6G --mail-user=[YOUR EMAIL HERE] --mail-type=END,FAIL
 ```
 
-All done! Now go to your project directory, and run your script. Let's say its name is `demo.r`
+All done! Let's try these. 
+
+Go to your project directory, and run your script. Let's say its name is `demo.r`
 ```
 cd ~/demo_project
 srun_r demo.r
