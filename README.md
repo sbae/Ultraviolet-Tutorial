@@ -69,8 +69,8 @@ Loading default-environment
 ```
 You are in the login node. Your command prompt shows `ln2`. 
 
-## Developing your script in an interactive session
-Use this workflow only for development purposes. Your final results must come from a batch job.
+## Developing your script in an interactive session - Part 1
+Use this workflow only for light development purposes. Your final results must come from a batch job for reproducibility.
 
 Read this first: https://hpcmed.org/guide/slurm#headings2
 
@@ -104,6 +104,39 @@ Stata (GUI): `xstata` (You need X11. Use MobaXTerm or XQuartz.)
 
 R (CLI): `R`
 
+
+## [VS Code only] Developing your script in an interactive session - Part 2
+VS Code uses Remote-SSH, which occupies the login node. It can cause problems. 
+
+If you want to use VS Code and run any sort of actual analyses interactively, use this workflow instead. Your final results must still come from a batch job for reproducibility.
+
+### 1. Request a computing node.
+Run this command: `sbatch --time=04:00:00 --mem=10GB --wrap "sleep infinity"`
+
+```
+[baes03@bigpurple-ln3 ~]$ sbatch --time=04:00:00 --mem=10GB --wrap "sleep infinity"
+Submitted batch job 54768978
+[baes03@bigpurple-ln3 ~]$ status
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          54740899 cpu_mediu Full_mod   baes03  R    5:28:15      1 cn-0012
+          54768978 cpu_short     wrap   baes03  R       0:01      1 cn-0008
+```
+Now you have a session on `cn-0008`.
+
+On VS Code, open 'Remote Explorer' from the menu bar on the left. On the top, there's a row named SSH. Bring your mouse pointer and click on the gear icon named 'Open SSH Config File'. Probably pick the first one. Add these lines and save.
+
+```
+Host bigpurple-compute
+  HostName [Change this to the computing node you got. In this example, this should be cn-0008]
+  User [Your ID]
+  ProxyJump [Your ID]@bigpurple.nyumc.org
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR
+```
+Now on your Remote Explorer, you'll find a new server called 'bigpurple-compute'. Open it in a new window. VS Code connects directly to `cn-0008` without bothering the login node.
+
+Next time, you just need to update the `HostName` to match the computing node you were assigned to.
 
 
 ## Where to find datasets
